@@ -1,0 +1,23 @@
+{
+	"name" : "ignaszak/registry",
+	"type" : "library",
+	"description" : "Registry pattern",
+	"keywords" : [
+		"registry",
+		"pattern"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Tomasz Ignaszak",
+			"email" : "tomek.ignaszak@gmail.com"
+		}
+	],
+	"require" : {
+		"php" : ">=7.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Ignaszak\\Registry\\" : "src/"
+		}
+	}
+}
