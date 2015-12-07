@@ -71,7 +71,7 @@ class RegistryFactory
         switch ($registry) {
             case 'request': return __NAMESPACE__ . '\RequestRegistry'; break;
             case 'session': return __NAMESPACE__ . '\SessionRegistry'; break;
-            case 'coockie': return __NAMESPACE__ . '\CoockieRegistry'; break;
+            case 'cookie':  return __NAMESPACE__ . '\CookieRegistry';  break;
             default: throw new Exception('Incorrect argument');
         }
     }

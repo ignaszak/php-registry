@@ -5,8 +5,8 @@ include __DIR__ . '/autoload.php';
 // Use start method to begin
 // RegistryFactory::start([string $registry = 'request']):
 //      'request' - stores objects in variable - DEFAULT OPTION
-//      'session' - stores objects in session  - NOT COMPLETED
-//      'coockie' - stores objects in coockie  - NOT COMPLETED
+//      'session' - stores objects in session
+//      'cookie'  - stores objects in coockie
 $registry = Ignaszak\Registry\RegistryFactory::start();
 
 // Test class

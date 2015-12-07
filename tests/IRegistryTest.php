@@ -2,16 +2,20 @@
 
 namespace Test;
 
-use Ignaszak\Registry\RequestRegistry;
-
-class RequestRegistryTest extends \PHPUnit_Framework_TestCase
+class IRegistryTest extends \PHPUnit_Framework_TestCase
 {
 
-    private static $_registry;
+    public static $_registry;
 
     public static function setUpBeforeClass()
     {
-        self::$_registry = new RequestRegistry;
+        new class extends \PHPUnit_Framework_TestCase
+        {
+            public function __construct()
+            {
+                \Test\IRegistryTest::$_registry = $this->getMockForAbstractClass('Ignaszak\Registry\IRegistry');
+            }
+        };
     }
 
     public function testSet()

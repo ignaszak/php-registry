@@ -17,12 +17,59 @@ namespace Ignaszak\Registry;
  * @link
  *
  */
-interface IRegistry
+abstract class IRegistry
 {
 
-    public function set(string $name, $value);
-    public function get(string $name);
-    public function remove(string $name): bool;
-    public function isAdded(string $name): bool;
+    /**
+     * @var object[]
+     */
+    protected $registryArray = array();
+
+    /**
+     * @param string $name
+     * @param object $value
+     */
+    public function set(string $name, $value)
+    {
+        $this->registryArray[$name] = $value;
+    }
+
+    /**
+     * @param string $name
+     * @return object|null
+     */
+    public function get(string $name)
+    {
+        if ($this->isAdded($name))
+            return $this->registryArray[$name];
+    
+            return null;
+    }
+
+    /**
+     * @param string $name
+     * @return boolean
+     */
+    public function remove(string $name): bool
+    {
+        if ($this->isAdded($name)) {
+            unset($this->registryArray[$name]);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $name
+     * @return boolean
+     */
+    public function isAdded(string $name): bool
+    {
+        if (array_key_exists($name, $this->registryArray))
+            return true;
+
+            return false;
+    }
 
 }
