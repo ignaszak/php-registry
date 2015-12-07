@@ -37,7 +37,7 @@ php >= 7.0
 // RegistryFactory::start([string $registry = 'request']):
 //      'request' - stores objects in variable - DEFAULT OPTION
 //      'session' - stores objects in session
-//      'cookie'  - stores objects in coockie
+//      'cookie'  - stores objects in cookie
 $registry = Ignaszak\Registry\RegistryFactory::start();
 
 // Test class
