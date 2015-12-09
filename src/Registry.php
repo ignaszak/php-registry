@@ -67,8 +67,12 @@ class Registry
         if ($this->_registry->isAdded($name)) {
             return $this->get($name);
         } else {
-            if ($this->classExists($name))
-                return $this->set($name, new $name);
+
+            if ($this->classExists($name)) {
+                $this->set($name, new $name);
+                return $this->get($name);
+            }
+
         }
     }
 
