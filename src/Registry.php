@@ -64,16 +64,10 @@ class Registry
      */
     public function register(string $name)
     {
-        if ($this->_registry->isAdded($name)) {
-            return $this->get($name);
-        } else {
+        if (!$this->_registry->isAdded($name) && $this->classExists($name))
+            $this->set($name, new $name);
 
-            if ($this->classExists($name)) {
-                $this->set($name, new $name);
-                return $this->get($name);
-            }
-
-        }
+        return $this->get($name);
     }
 
     /**
