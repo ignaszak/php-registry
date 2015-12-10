@@ -69,9 +69,10 @@ class RegistryFactory
     private static function getClassName(string $registry): string
     {
         switch ($registry) {
-            case 'request': return __NAMESPACE__ . '\RequestRegistry'; break;
-            case 'session': return __NAMESPACE__ . '\SessionRegistry'; break;
-            case 'cookie':  return __NAMESPACE__ . '\CookieRegistry';  break;
+            case 'request':     return __NAMESPACE__ . '\RequestRegistry';     break;
+            case 'session':     return __NAMESPACE__ . '\SessionRegistry';     break;
+            case 'cookie':      return __NAMESPACE__ . '\CookieRegistry';      break;
+            case 'application': return __NAMESPACE__ . '\ApplicationRegistry'; break;
             default: throw new Exception('Incorrect argument');
         }
     }

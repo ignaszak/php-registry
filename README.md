@@ -38,6 +38,7 @@ php >= 7.0
 //      'request' - stores objects in variable - DEFAULT OPTION
 //      'session' - stores objects in session
 //      'cookie'  - stores objects in cookie
+//      'file'    - stores objects in file
 $registry = Ignaszak\Registry\RegistryFactory::start();
 
 // Test class
