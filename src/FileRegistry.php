@@ -33,7 +33,7 @@ class FileRegistry extends IRegistry
     public function set(string $name, $value)
     {
         if (!is_dir($this->path)) {
-            if (!mkdir($this->path, 0777, true))
+            if (@mkdir($this->path, 0777, true))
                 throw new Exception("Can't create '{$this->path}' folder");
         }
 
