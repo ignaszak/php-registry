@@ -37,8 +37,12 @@ class FileRegistry extends IRegistry
                 throw new Exception("Can't create '{$this->path}' folder");
         }
 
-        parent::set($name, $value);
-        file_put_contents("{$this->path}/IgnaszakRegistry_$name.tmp", serialize($value));
+        if (is_writable($this->path)) {
+            parent::set($name, $value);
+            file_put_contents("{$this->path}/IgnaszakRegistry_$name.tmp", serialize($value));
+        } else {
+            throw new Exception("Permission denied ({$this->path})");
+        }
     }
 
     /**

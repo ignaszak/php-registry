@@ -7,7 +7,7 @@ use Ignaszak\Registry\FileRegistry;
 class FileRegistryTest extends \PHPUnit_Framework_TestCase
 {
 
-    private  $_registry;
+    private $_registry;
     private $path;
 
     public function setUp()
