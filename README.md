@@ -33,13 +33,22 @@ php >= 7.0
 ## Example
 
 ```php
+use Ignaszak\Registry\Conf;
+use Ignaszak\Registry\RegistryFactory;
+
+include __DIR__ . '/autoload.php';
+
+// Configuration - optional
+// Conf::setCookieLife(int $cookieLife); // default: 30 days
+// Conf::setTmpPath(string $tmpPath);    // default: './src/tmp'
+
 // Use start method to begin
 // RegistryFactory::start([string $registry = 'request']):
 //      'request' - stores objects in variable - DEFAULT OPTION
 //      'session' - stores objects in session
 //      'cookie'  - stores objects in cookie
 //      'file'    - stores objects in file
-$registry = Ignaszak\Registry\RegistryFactory::start();
+$registry = RegistryFactory::start();
 
 // Test class
 class TestClass
@@ -55,24 +64,24 @@ class TestClass
 // Use set and get methods
 $registry->set('test', new TestClass);
 $registry->get('test');
-echo Test::$counter;    // Will output 1
+echo TestClass::$counter;    // Will output 1
 $registry->get('test');
-echo Test::$counter;    // Will output 1
+echo TestClass::$counter;    // Will output 1
 
 // Reload object
 $registry->reload('test');
-echo Test::$counter;    // Will output 2
+echo TestClass::$counter;    // Will output 2
 
 // Remove from register
 $registry->remove('test');
 
 // Use register method
 $registry->register('TestClass'); // First use sets instance of TestClass
-echo Test::$counter; // Will output 3
+echo TestClass::$counter; // Will output 3
 $registry->register('TestClass'); // Returns TestClass object
-echo Test::$counter; // Will output 3
+echo TestClass::$counter; // Will output 3
 $registry->reload('TestClass');
-echo Test::$counter; // Will output 4
+echo TestClass::$counter; // Will output 4
 $registry->get('TestClass'); // Returns TestClass object
 $registry->remove('TestClass');
 ```

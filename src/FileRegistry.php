@@ -21,27 +21,22 @@ class FileRegistry extends IRegistry
 {
 
     /**
-     * @var string
-     */
-    private $path = __DIR__ . '/tmp';
-
-    /**
      * @param string $name
      * @param object $value
      * @throws Exception
      */
     public function set(string $name, $value)
     {
-        if (!is_dir($this->path)) {
-            if (!@mkdir($this->path, 0777, true))
-                throw new Exception("Can't create '{$this->path}' folder");
+        if (!is_dir(Conf::getTmpPath())) {
+            if (!@mkdir(Conf::getTmpPath(), 0777, true))
+                throw new Exception("Can't create '" . Conf::getTmpPath() . "' folder");
         }
 
-        if (is_writable($this->path)) {
+        if (is_writable(Conf::getTmpPath())) {
             parent::set($name, $value);
-            file_put_contents("{$this->path}/IgnaszakRegistry_$name.tmp", serialize($value));
+            file_put_contents(Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp", serialize($value));
         } else {
-            throw new Exception("Permission denied ({$this->path})");
+            throw new Exception("Permission denied (" . Conf::getTmpPath() . ")");
         }
     }
 
@@ -51,7 +46,7 @@ class FileRegistry extends IRegistry
      */
     public function get(string $name)
     {
-        $tmpFile = "{$this->path}/IgnaszakRegistry_$name.tmp";
+        $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp";
 
         if (file_exists($tmpFile)) {
 
@@ -72,7 +67,7 @@ class FileRegistry extends IRegistry
      */
     public function remove(string $name): bool
     {
-        $tmpFile = "{$this->path}/IgnaszakRegistry_$name.tmp";
+        $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp";
 
         if (file_exists($tmpFile))
             unlink($tmpFile);

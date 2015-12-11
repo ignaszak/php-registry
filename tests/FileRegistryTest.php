@@ -3,6 +3,7 @@
 namespace Test;
 
 use Ignaszak\Registry\FileRegistry;
+use Ignaszak\Registry\Conf;
 
 class FileRegistryTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +14,7 @@ class FileRegistryTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_registry = new FileRegistry;
-        $this->path = \PHPUnit_Framework_Assert::readAttribute($this->_registry, 'path');
+        $this->path = Conf::getTmpPath();
     }
 
     public function testSaveFileOnSet()

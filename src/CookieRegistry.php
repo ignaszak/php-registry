@@ -20,11 +20,6 @@ namespace Ignaszak\Registry;
 class CookieRegistry extends IRegistry
 {
 
-    /**
-     * @var integer
-     */
-    private $cookieLife = 60*60*24*30;
-
     public function __construct()
     {
         if (isset($_COOKIE['IgnaszakRegistry']))
@@ -34,7 +29,7 @@ class CookieRegistry extends IRegistry
     public function __destruct()
     {
         if (count($this->registryArray)) {
-            setcookie('IgnaszakRegistry', serialize($this->registryArray), time() + $this->cookieLife);
+            setcookie('IgnaszakRegistry', serialize($this->registryArray), time() + Conf::getCookieLife());
         }
     }
 

@@ -1,6 +1,13 @@
 <?php
 
+use Ignaszak\Registry\Conf;
+use Ignaszak\Registry\RegistryFactory;
+
 include __DIR__ . '/autoload.php';
+
+// Configuration - optional
+// Conf::setCookieLife(int $cookieLife); // default: 30 days
+// Conf::setTmpPath(string $tmpPath);    // default: './src/tmp'
 
 // Use start method to begin
 // RegistryFactory::start([string $registry = 'request']):
@@ -8,7 +15,7 @@ include __DIR__ . '/autoload.php';
 //      'session' - stores objects in session
 //      'cookie'  - stores objects in cookie
 //      'file'    - stores objects in file
-$registry = Ignaszak\Registry\RegistryFactory::start();
+$registry = RegistryFactory::start();
 
 // Test class
 class TestClass
