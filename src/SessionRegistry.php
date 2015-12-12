@@ -31,8 +31,7 @@ class SessionRegistry extends IRegistry
 
     public function __destruct()
     {
-        if (count($this->registryArray))
-            $_SESSION['IgnaszakRegistry'] = serialize($this->registryArray);
+        $_SESSION['IgnaszakRegistry'] = serialize($this->registryArray);
     }
 
 }

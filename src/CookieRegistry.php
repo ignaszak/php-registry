@@ -28,9 +28,12 @@ class CookieRegistry extends IRegistry
 
     public function __destruct()
     {
-        if (count($this->registryArray)) {
-            setcookie('IgnaszakRegistry', serialize($this->registryArray), time() + Conf::getCookieLife());
-        }
+        setcookie(
+            'IgnaszakRegistry',
+            serialize($this->registryArray),
+            time() + Conf::getCookieLife(),
+            Conf::getCookiePath()
+        );
     }
 
 }

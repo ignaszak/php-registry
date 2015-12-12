@@ -31,6 +31,11 @@ abstract class Conf
     private static $cookieLife = 60*60*24*30;
 
     /**
+     * @var integer
+     */
+    private static $cookiePath = '/';
+
+    /**
      * @return string
      */
     public static function getTmpPath(): string
@@ -61,6 +66,22 @@ abstract class Conf
     public static function setCookieLife(int $cookieLife)
     {
         self::$cookieLife = $cookieLife;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getCookiePath(): string
+    {
+        return self::$cookiePath;
+    }
+
+    /**
+     * @param string $cookiePath
+     */
+    public static function setCookiePath(string $cookiePath)
+    {
+        self::$cookiePath = $cookiePath;
     }
 
 }

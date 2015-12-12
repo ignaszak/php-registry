@@ -39,8 +39,9 @@ use Ignaszak\Registry\RegistryFactory;
 include __DIR__ . '/autoload.php';
 
 // Configuration - optional
-// Conf::setCookieLife(int $cookieLife); // default: 30 days
-// Conf::setTmpPath(string $tmpPath);    // default: './src/tmp'
+// Conf::setTmpPath(string $tmpPath);      // default: './src/tmp'
+// Conf::setCookieLife(int $cookieLife);   // default: 30 days
+// Conf::setCookiePath(string $cookiePath) // default: '/'
 
 // Use start method to begin
 // RegistryFactory::start([string $registry = 'request']):
