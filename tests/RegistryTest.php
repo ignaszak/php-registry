@@ -7,12 +7,12 @@ use Ignaszak\Registry\Registry;
 
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
-
+    
     private $_registry;
-
+    
     public function setUp()
     {
-        $this->_registry = new Registry;
+        $this->_registry = new Registry($this->getMock('Ignaszak\Registry\IRegistry'));
     }
 
     public function testSetWithEmptyValues()
@@ -27,10 +27,10 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
             ->method('set')
             ->will($this->returnValue(true));
 
-        $this->_registry->setInstance($stub);
+        $_registry = new Registry($stub);
         $name = 'SomeName';
         $value = $this->getMock('SomeClass');
-        $this->_registry->set($name, $value);
+        $_registry->set($name, $value);
     }
 
     public function testGet()
@@ -40,8 +40,8 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue(true));
 
-        $this->_registry->setInstance($stub);
-        $this->assertTrue($this->_registry->get('name'));
+        $_registry = new Registry($stub);
+        $this->assertTrue($_registry->get('name'));
     }
 
     /**
@@ -63,8 +63,8 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
             ->method('isAdded')
             ->will($this->returnValue(true));
 
-        $this->_registry->setInstance($stub);
-        $this->assertInstanceOf(__CLASS__, $this->_registry->register(__CLASS__));
+        $_registry = new Registry($stub);
+        $this->assertInstanceOf(__CLASS__, $_registry->register(__CLASS__));
     }
 
     public function testRegisterNew()
@@ -76,8 +76,8 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $stub->expects($this->once())
             ->method('set');
 
-        $this->_registry->setInstance($stub);
-        $this->_registry->register(__CLASS__);
+        $_registry = new Registry($stub);
+        $_registry->register(__CLASS__);
     }
 
     /**
@@ -89,8 +89,8 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $stub->expects($this->once())
             ->method('isAdded');
 
-        $this->_registry->setInstance($stub);
-        $this->_registry->register('noExistingClass');
+        $_registry = new Registry($stub);
+        $_registry->register('noExistingClass');
     }
 
     public function testRemove()
@@ -100,8 +100,8 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
             ->method('remove')
             ->will($this->returnValue(true));
 
-        $this->_registry->setInstance($stub);
-        $this->_registry->remove('name');
+        $_registry = new Registry($stub);
+        $_registry->remove('name');
     }
 
     /**
@@ -114,19 +114,22 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
             ->method('isAdded')
             ->will($this->returnValue(false));
 
-        $this->_registry->setInstance($stub);
-        $this->_registry->reload('noExistingClass');
+        $_registry = new Registry($stub);
+        $_registry->reload('noExistingClass');
     }
 
     public function testReload()
     {
         $stub = $this->getMock('Ignaszak\Registry\IRegistry');
         $stub->expects($this->once())
-        ->method('isAdded')
-        ->will($this->returnValue(true));
-    
-        $this->_registry->setInstance($stub);
-        $this->assertTrue($this->_registry->reload(__CLASS__));
+            ->method('isAdded')
+            ->will($this->returnValue(true));
+        $stub->expects($this->once())
+            ->method('get')
+            ->will($this->returnValue($this->getMock(__CLASS__)));
+
+        $_registry = new Registry($stub);
+        $this->assertTrue($_registry->reload(__CLASS__));
     }
 
     public function testIsObject()

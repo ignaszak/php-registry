@@ -28,7 +28,7 @@ class Registry
     /**
      * @param IRegistry $_registry
      */
-    public function setInstance(IRegistry $_registry)
+    public function __construct(IRegistry $_registry)
     {
         $this->_registry = $_registry;
     }

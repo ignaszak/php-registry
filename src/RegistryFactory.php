@@ -21,11 +21,6 @@ class RegistryFactory
 {
 
     /**
-     * @var Registry
-     */
-    private static $_registry;
-
-    /**
      * @var IRegistry[]
      */
     private static $_registryArray = array();
@@ -36,43 +31,26 @@ class RegistryFactory
      */
     public static function start(string $registry = 'request'): Registry
     {
-        if (empty(self::$_registry))
-            self::$_registry = new Registry;
-
-        self::$_registry->setInstance(self::getRegistryInstance($registry));
-        return self::$_registry;
-    }
-
-    /**
-     * @param string $registry
-     * @return IRegistry
-     */
-    private static function getRegistryInstance(string $registry): IRegistry
-    {
         if (array_key_exists($registry, self::$_registryArray)) {
-
             return self::$_registryArray[$registry];
-
         } else {
-
-            $registryClass = self::getClassName($registry);
-            self::$_registryArray[$registry] = new $registryClass;
+            self::$_registryArray[$registry] = new Registry(self::getRegistryInstance($registry));
             return self::$_registryArray[$registry];
-
         }
     }
 
     /**
      * @param string $registry
      * @return string
+     * @throws Exception
      */
-    private static function getClassName(string $registry): string
+    private static function getRegistryInstance(string $registry): IRegistry
     {
         switch ($registry) {
-            case 'request': return __NAMESPACE__ . '\RequestRegistry'; break;
-            case 'session': return __NAMESPACE__ . '\SessionRegistry'; break;
-            case 'cookie':  return __NAMESPACE__ . '\CookieRegistry';  break;
-            case 'file':    return __NAMESPACE__ . '\FileRegistry';    break;
+            case 'request': return new RequestRegistry; break;
+            case 'session': return new SessionRegistry; break;
+            case 'cookie':  return new CookieRegistry;  break;
+            case 'file':    return new FileRegistry;    break;
             default: throw new Exception('Incorrect argument');
         }
     }
