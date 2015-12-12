@@ -32,11 +32,20 @@ class FileRegistry extends IRegistry
                 throw new Exception("Can't create '" . Conf::getTmpPath() . "' folder");
         }
 
-        if (is_writable(Conf::getTmpPath())) {
-            parent::set($name, $value);
-            file_put_contents(Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp", serialize($value));
-        } else {
-            throw new Exception("Permission denied (" . Conf::getTmpPath() . ")");
+        // Check if file is exists
+        if (is_object($this->get($name))) {
+
+            parent::set($name, $this->get($name));
+
+        } else { // If not create new file
+
+            if (is_writable(Conf::getTmpPath())) {
+                parent::set($name, $value);
+                file_put_contents(Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp", serialize($value));
+            } else {
+                throw new Exception("Permission denied (" . Conf::getTmpPath() . ")");
+            }
+
         }
     }
 
@@ -52,7 +61,7 @@ class FileRegistry extends IRegistry
 
             if (!$this->isAdded($name)) {
                 $fileContent = file_get_contents($tmpFile);
-                parent::set($name, unserialize($fileContent));
+                $this->registryArray[$name] = unserialize($fileContent);
             }
 
             return $this->registryArray[$name];
