@@ -27,17 +27,17 @@ class FileRegistry extends IRegistry
      */
     public function set(string $name, $value)
     {
-        if (!is_dir(Conf::getTmpPath())) {
-            if (!@mkdir(Conf::getTmpPath(), 0777, true))
-                throw new Exception("Can't create '" . Conf::getTmpPath() . "' folder");
-        }
-
         // Check if file is exists
         if (is_object($this->get($name))) {
 
             parent::set($name, $this->get($name));
 
         } else { // If not create new file
+
+            if (!is_dir(Conf::getTmpPath())) {
+                if (!@mkdir(Conf::getTmpPath(), 0777, true))
+                    throw new Exception("Can't create '" . Conf::getTmpPath() . "' folder");
+            }
 
             if (is_writable(Conf::getTmpPath())) {
                 parent::set($name, $value);
