@@ -22,5 +22,4 @@ class SessionRegistryTest extends \PHPUnit_Framework_TestCase
         $registry = new SessionRegistry;
         $this->assertInstanceOf('AnyClass', $registry->get('test'));
     }
-
 }

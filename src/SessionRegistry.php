@@ -12,7 +12,7 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
@@ -22,16 +22,17 @@ class SessionRegistry extends IRegistry
 
     public function __construct()
     {
-        if (session_status() !== PHP_SESSION_ACTIVE)
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
+        }
 
-        if (isset($_SESSION['IgnaszakRegistry']))
+        if (isset($_SESSION['IgnaszakRegistry'])) {
             $this->registryArray = unserialize($_SESSION['IgnaszakRegistry']);
+        }
     }
 
     public function __destruct()
     {
         $_SESSION['IgnaszakRegistry'] = serialize($this->registryArray);
     }
-
 }

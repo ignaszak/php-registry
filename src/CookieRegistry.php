@@ -12,7 +12,7 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
@@ -22,8 +22,9 @@ class CookieRegistry extends IRegistry
 
     public function __construct()
     {
-        if (isset($_COOKIE['IgnaszakRegistry']))
+        if (isset($_COOKIE['IgnaszakRegistry'])) {
             $this->registryArray = unserialize($_COOKIE['IgnaszakRegistry']);
+        }
     }
 
     public function __destruct()
@@ -35,5 +36,4 @@ class CookieRegistry extends IRegistry
             Conf::getCookiePath()
         );
     }
-
 }

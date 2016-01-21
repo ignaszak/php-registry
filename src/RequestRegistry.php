@@ -12,9 +12,11 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
  */
-class RequestRegistry extends IRegistry {}
+class RequestRegistry extends IRegistry
+{
+}

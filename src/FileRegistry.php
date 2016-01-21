@@ -12,7 +12,7 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
@@ -35,8 +35,9 @@ class FileRegistry extends IRegistry
         } else { // If not create new file
 
             if (!is_dir(Conf::getTmpPath())) {
-                if (!@mkdir(Conf::getTmpPath(), 0777, true))
+                if (!@mkdir(Conf::getTmpPath(), 0777, true)) {
                     throw new Exception("Can't create '" . Conf::getTmpPath() . "' folder");
+                }
             }
 
             if (is_writable(Conf::getTmpPath())) {
@@ -78,10 +79,10 @@ class FileRegistry extends IRegistry
     {
         $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp";
 
-        if (file_exists($tmpFile))
+        if (file_exists($tmpFile)) {
             unlink($tmpFile);
+        }
 
         return parent::remove($name);
     }
-
 }

@@ -12,7 +12,7 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
@@ -83,5 +83,4 @@ abstract class Conf
     {
         self::$cookiePath = $cookiePath;
     }
-
 }

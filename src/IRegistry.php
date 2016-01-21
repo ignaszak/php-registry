@@ -12,7 +12,7 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
@@ -40,8 +40,9 @@ abstract class IRegistry
      */
     public function get(string $name)
     {
-        if ($this->isAdded($name))
+        if ($this->isAdded($name)) {
             return $this->registryArray[$name];
+        }
     
             return null;
     }
@@ -66,10 +67,10 @@ abstract class IRegistry
      */
     public function isAdded(string $name): bool
     {
-        if (array_key_exists($name, $this->registryArray))
+        if (array_key_exists($name, $this->registryArray)) {
             return true;
+        }
 
             return false;
     }
-
 }

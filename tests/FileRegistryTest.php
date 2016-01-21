@@ -34,5 +34,4 @@ class FileRegistryTest extends \PHPUnit_Framework_TestCase
         $this->_registry->remove('name');
         $this->assertFileNotExists("{$this->path}/IgnaszakRegistry_name.tmp");
     }
-
 }

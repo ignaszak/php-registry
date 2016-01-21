@@ -20,5 +20,4 @@ class RegistryFactoryTest extends \PHPUnit_Framework_TestCase
     {
         RegistryFactory::start('incorrectArgument');
     }
-
 }

@@ -52,5 +52,4 @@ class IRegistryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(array_key_exists('name', $registryArray));
         $this->assertFalse(self::$_registry->remove('noExistingName'));
     }
-
 }

@@ -52,5 +52,3 @@ $registry->reload('TestClass');
 echo TestClass::$counter; // Will output 4
 $registry->get('TestClass'); // Returns TestClass object
 $registry->remove('TestClass');
-
-?>

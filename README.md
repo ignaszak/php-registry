@@ -15,7 +15,7 @@ The package is avilable via [Composer/Packagist](https://packagist.org/packages/
 or:
 
 ```sh
-composer require ignaszak/registry
+php composer.phar require ignaszak/registry
 ```
 
 ## Running Tests

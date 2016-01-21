@@ -160,5 +160,4 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     {
         MockTest::callMockMethod($this->_registry, 'classExists', array('noExistingClass'));
     }
-
 }

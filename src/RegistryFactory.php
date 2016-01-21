@@ -12,9 +12,9 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
- * @link 
+ * @link
  *
  */
 class RegistryFactory
@@ -47,12 +47,20 @@ class RegistryFactory
     private static function getRegistryInstance(string $registry): IRegistry
     {
         switch ($registry) {
-            case 'request': return new RequestRegistry; break;
-            case 'session': return new SessionRegistry; break;
-            case 'cookie':  return new CookieRegistry;  break;
-            case 'file':    return new FileRegistry;    break;
-            default: throw new Exception('Incorrect argument');
+            case 'request':
+                return new RequestRegistry;
+            break;
+            case 'session':
+                return new SessionRegistry;
+            break;
+            case 'cookie':
+                return new CookieRegistry;
+            break;
+            case 'file':
+                return new FileRegistry;
+            break;
+            default:
+                throw new Exception('Incorrect argument');
         }
     }
-
 }

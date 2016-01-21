@@ -12,7 +12,7 @@
 namespace Ignaszak\Registry;
 
 /**
- * 
+ *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
  * @link
  *
@@ -64,8 +64,9 @@ class Registry
      */
     public function register(string $name)
     {
-        if (!$this->_registry->isAdded($name) && $this->classExists($name))
+        if (!$this->_registry->isAdded($name) && $this->classExists($name)) {
             $this->set($name, new $name);
+        }
 
         return $this->get($name);
     }
@@ -121,5 +122,4 @@ class Registry
             throw new Exception("Class '$name' not exists");
         }
     }
-
 }
