@@ -1,0 +1,8 @@
+$ cat .gitignore
+doc/
+vendor/
+composer.lock
+.git
+.project
+.settings
+.buildpath
