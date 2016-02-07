@@ -52,17 +52,25 @@ include __DIR__ . '/autoload.php';
 $registry = RegistryFactory::start();
 
 // Use set and get methods
-$registry->set('test', new AnyClass);
-$registry->get('test'); // Returns AnyClass instance
+// The first parameter is a key at witch created object is stored
+// Key is used in any other method
+$registry->set('key', new AnyClass);
+$registry->get('key'); // Returns AnyClass instance
 
 // Reload object
-$registry->reload('test');
+$registry->reload('key');
 
 // Remove from register
-$registry->remove('test');
+$registry->remove('key');
 
 // Use register method
+// In these method key is class name with namespace
 // First use sets and returns instance of AnyClass
 // Any further use only returns instance of AnyClass
 $registry->register('AnyClass');
+// It is possible to use earlier methods
+$registry->reload('AnyClass');
+$registry->remove('AnyClass');
+
+
 ```
