@@ -7,12 +7,12 @@ use Ignaszak\Registry\Registry;
 
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
-    
+
     private $_registry;
-    
+
     public function setUp()
     {
-        $this->_registry = new Registry($this->getMock('Ignaszak\Registry\IRegistry'));
+        $this->_registry = new Registry($this->getMock('Ignaszak\Registry\Scope\IRegistry'));
     }
 
     public function testSetWithEmptyValues()
@@ -22,7 +22,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testSetValue()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('set')
             ->will($this->returnValue(true));
@@ -35,7 +35,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testGet()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('get')
             ->will($this->returnValue(true));
@@ -55,7 +55,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterAdded()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('get')
             ->will($this->returnValue(new self));
@@ -69,7 +69,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterNew()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('isAdded')
             ->will($this->returnValue(false));
@@ -85,7 +85,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterException()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('isAdded');
 
@@ -95,7 +95,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRemove()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('remove')
             ->will($this->returnValue(true));
@@ -109,7 +109,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testReloadNonAddedClass()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('isAdded')
             ->will($this->returnValue(false));
@@ -120,7 +120,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testReload()
     {
-        $stub = $this->getMock('Ignaszak\Registry\IRegistry');
+        $stub = $this->getMock('Ignaszak\Registry\Scope\IRegistry');
         $stub->expects($this->once())
             ->method('isAdded')
             ->will($this->returnValue(true));

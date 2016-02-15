@@ -1,8 +1,8 @@
 <?php
 
-namespace Test;
+namespace Test\Scope;
 
-use Ignaszak\Registry\FileRegistry;
+use Ignaszak\Registry\Scope\FileRegistry;
 use Ignaszak\Registry\Conf;
 
 class FileRegistryTest extends \PHPUnit_Framework_TestCase

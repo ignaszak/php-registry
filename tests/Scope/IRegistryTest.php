@@ -1,6 +1,6 @@
 <?php
 
-namespace Test;
+namespace Test\Scope;
 
 class IRegistryTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +13,7 @@ class IRegistryTest extends \PHPUnit_Framework_TestCase
         {
             public function __construct()
             {
-                \Test\IRegistryTest::$_registry = $this->getMockForAbstractClass('Ignaszak\Registry\IRegistry');
+                \Test\Scope\IRegistryTest::$_registry = $this->getMockForAbstractClass('Ignaszak\Registry\Scope\IRegistry');
             }
         };
     }

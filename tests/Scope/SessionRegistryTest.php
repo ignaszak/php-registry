@@ -1,8 +1,8 @@
 <?php
 
-namespace Test;
+namespace Test\Scope;
 
-use Ignaszak\Registry\SessionRegistry;
+use Ignaszak\Registry\Scope\SessionRegistry;
 
 class SessionRegistryTest extends \PHPUnit_Framework_TestCase
 {

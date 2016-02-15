@@ -2,7 +2,6 @@
 
 namespace Test;
 
-use Test\Mock\MockTest;
 use Ignaszak\Registry\RegistryFactory;
 
 class RegistryFactoryTest extends \PHPUnit_Framework_TestCase
