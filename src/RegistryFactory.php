@@ -63,7 +63,7 @@ class RegistryFactory
                 return new Scope\FileRegistry();
             break;
             default:
-                throw new Exception('Incorrect argument');
+                throw new \InvalidArgumentException('Incorrect argument');
         }
     }
 }

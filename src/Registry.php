@@ -92,7 +92,7 @@ class Registry
             $className = get_class($this->get($name));
             return $this->set($name, new $className);
         } else {
-            throw new Exception("Class '$name' not registered");
+            throw new \RuntimeException("Class '$name' not registered");
         }
     }
 
@@ -106,7 +106,7 @@ class Registry
         if (is_object($value)) {
             return true;
         } else {
-            throw new Exception('Object not exists');
+            throw new \RuntimeException('Object not exists');
         }
     }
 
@@ -120,7 +120,7 @@ class Registry
         if (class_exists($name)) {
             return true;
         } else {
-            throw new Exception("Class '$name' not exists");
+            throw new \RuntimeException("Class '$name' not exists");
         }
     }
 }

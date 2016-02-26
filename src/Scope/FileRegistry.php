@@ -39,7 +39,7 @@ class FileRegistry extends IRegistry
 
             if (!is_dir(Conf::getTmpPath())) {
                 if (!@mkdir(Conf::getTmpPath(), 0777, true)) {
-                    throw new Exception("Can't create '" . Conf::getTmpPath() . "' folder");
+                    throw new \RuntimeException("Can't create '" . Conf::getTmpPath() . "' folder");
                 }
             }
 
@@ -47,7 +47,7 @@ class FileRegistry extends IRegistry
                 parent::set($name, $value);
                 file_put_contents(Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp", serialize($value));
             } else {
-                throw new Exception("Permission denied (" . Conf::getTmpPath() . ")");
+                throw new \RuntimeException("Permission denied (" . Conf::getTmpPath() . ")");
             }
 
         }

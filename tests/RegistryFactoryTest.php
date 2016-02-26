@@ -13,7 +13,7 @@ class RegistryFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Ignaszak\Registry\Exception
+     * @expectedException \InvalidArgumentException
      */
     public function testStartException()
     {
