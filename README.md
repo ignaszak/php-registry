@@ -1,5 +1,7 @@
 # ignaszak/registry
 
+[![Build Status](https://travis-ci.org/ignaszak/php-registry.svg?branch=master)](https://travis-ci.org/ignaszak/php-registry)[![Coverage Status](https://coveralls.io/repos/github/ignaszak/php-registry/badge.svg?branch=master)](https://coveralls.io/github/ignaszak/php-registry?branch=master)
+
 Registry pattern
 
 ## Installing
