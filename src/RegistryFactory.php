@@ -12,10 +12,11 @@ declare(strict_types=1);
 
 namespace Ignaszak\Registry;
 
+use Ignaszak\Registry\Scope\IRegistry;
+
 /**
  *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
- * @link
  *
  */
 class RegistryFactory
@@ -27,8 +28,9 @@ class RegistryFactory
     private static $_registryArray = [];
 
     /**
+     *
      * @param string $registry
-     * @return Registry
+     * @return \Ignaszak\Registry\IRegistry
      */
     public static function start(string $registry = 'request'): Registry
     {
@@ -43,25 +45,26 @@ class RegistryFactory
     }
 
     /**
+     *
      * @param string $registry
-     * @return string
-     * @throws Exception
+     * @throws \InvalidArgumentException
+     * @return \Ignaszak\Registry\Scope\IRegistry
      */
-    private static function getRegistryInstance(string $registry): Scope\IRegistry
+    private static function getRegistryInstance(string $registry): IRegistry
     {
         switch ($registry) {
             case 'request':
                 return new Scope\RequestRegistry();
-            break;
+                break;
             case 'session':
                 return new Scope\SessionRegistry();
-            break;
+                break;
             case 'cookie':
                 return new Scope\CookieRegistry();
-            break;
+                break;
             case 'file':
                 return new Scope\FileRegistry();
-            break;
+                break;
             default:
                 throw new \InvalidArgumentException('Incorrect argument');
         }
