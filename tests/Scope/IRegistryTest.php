@@ -2,6 +2,8 @@
 
 namespace Test\Scope;
 
+use Test\Mock\MockTest;
+
 class IRegistryTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -51,5 +53,11 @@ class IRegistryTest extends \PHPUnit_Framework_TestCase
         $registryArray = \PHPUnit_Framework_Assert::readAttribute(self::$_registry, 'registryArray');
         $this->assertFalse(array_key_exists('name', $registryArray));
         $this->assertFalse(self::$_registry->remove('noExistingName'));
+    }
+
+    public function testEmptyGet()
+    {
+        MockTest::inject(self::$_registry, 'registryArray', []);
+        $this->assertEmpty(self::$_registry->get('name'));
     }
 }

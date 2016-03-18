@@ -17,7 +17,6 @@ use Ignaszak\Registry\Conf;
 /**
  *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
- * @link
  *
  */
 class FileRegistry extends IRegistry
@@ -37,19 +36,25 @@ class FileRegistry extends IRegistry
 
         } else { // If not create new file
 
-            if (!is_dir(Conf::getTmpPath())) {
-                if (!@mkdir(Conf::getTmpPath(), 0777, true)) {
-                    throw new \RuntimeException("Can't create '" . Conf::getTmpPath() . "' folder");
+            if (! is_dir(Conf::getTmpPath())) {
+                if (! @mkdir(Conf::getTmpPath(), 0777, true)) {
+                    throw new \RuntimeException(
+                        "Can't create '" . Conf::getTmpPath() . "' folder"
+                    );
                 }
             }
 
             if (is_writable(Conf::getTmpPath())) {
                 parent::set($name, $value);
-                file_put_contents(Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp", serialize($value));
+                file_put_contents(
+                    Conf::getTmpPath() . "/IgnaszakRegistry_{$name}.tmp",
+                    serialize($value)
+                );
             } else {
-                throw new \RuntimeException("Permission denied (" . Conf::getTmpPath() . ")");
+                throw new \RuntimeException(
+                    "Permission denied (" . Conf::getTmpPath() . ")"
+                );
             }
-
         }
     }
 
@@ -59,7 +64,7 @@ class FileRegistry extends IRegistry
      */
     public function get(string $name)
     {
-        $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp";
+        $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_{$name}.tmp";
 
         if (file_exists($tmpFile)) {
 
@@ -80,7 +85,7 @@ class FileRegistry extends IRegistry
      */
     public function remove(string $name): bool
     {
-        $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_$name.tmp";
+        $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_{$name}.tmp";
 
         if (file_exists($tmpFile)) {
             unlink($tmpFile);

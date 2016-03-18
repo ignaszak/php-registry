@@ -13,7 +13,9 @@
 		}
 	],
 	"require" : {
-		"php" : ">=7.0"
+		"php" : ">=7.0",
+		"mikey179/vfsStream" : "*",
+		"phpunit/phpunit" : "*"
 	},
 	"autoload" : {
 		"psr-4" : {

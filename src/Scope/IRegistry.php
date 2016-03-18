@@ -45,7 +45,7 @@ abstract class IRegistry
             return $this->registryArray[$name];
         }
 
-            return null;
+        return null;
     }
 
     /**
