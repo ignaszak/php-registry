@@ -55,16 +55,12 @@ class RegistryFactory
         switch ($registry) {
             case 'request':
                 return new Scope\RequestRegistry();
-                break;
             case 'session':
                 return new Scope\SessionRegistry();
-                break;
             case 'cookie':
                 return new Scope\CookieRegistry();
-                break;
             case 'file':
                 return new Scope\FileRegistry();
-                break;
             default:
                 throw new \InvalidArgumentException('Incorrect argument');
         }
