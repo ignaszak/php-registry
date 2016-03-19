@@ -6,7 +6,6 @@
  *
  * @copyright 2015 Tomasz Ignaszak
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
- * @link      http://phpdoc.org
  */
 declare(strict_types=1);
 
@@ -15,7 +14,6 @@ namespace Ignaszak\Registry;
 /**
  *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
- * @link
  *
  */
 abstract class Conf
@@ -32,7 +30,7 @@ abstract class Conf
     private static $cookieLife = 60*60*24*30;
 
     /**
-     * @var integer
+     * @var string
      */
     private static $cookiePath = '/';
 
