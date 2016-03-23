@@ -6,13 +6,13 @@
  *
  * @copyright 2015 Tomasz Ignaszak
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
- * @link      http://phpdoc.org
  */
 declare(strict_types=1);
 
 namespace Ignaszak\Registry\Scope;
 
 use Ignaszak\Registry\Conf;
+use Ignaszak\Registry\RegistryException;
 
 /**
  *
@@ -23,9 +23,9 @@ class FileRegistry extends IRegistry
 {
 
     /**
-     * @param string $name
-     * @param object $value
-     * @throws Exception
+     *
+     * {@inheritDoc}
+     * @see \Ignaszak\Registry\Scope\IRegistry::set($name, $value)
      */
     public function set(string $name, $value)
     {
@@ -34,14 +34,13 @@ class FileRegistry extends IRegistry
 
             parent::set($name, $this->get($name));
 
-        } else { // If not create new file
-
-            if (! is_dir(Conf::getTmpPath())) {
-                if (! @mkdir(Conf::getTmpPath(), 0777, true)) {
-                    throw new \RuntimeException(
-                        "Can't create '" . Conf::getTmpPath() . "' folder"
-                    );
-                }
+        } else {
+            // If not create new file
+            if (! is_dir(Conf::getTmpPath()) &&
+                ! @mkdir(Conf::getTmpPath(), 0777, true)) {
+                throw new RegistryException(
+                    "Can't create '" . Conf::getTmpPath() . "' folder"
+                );
             }
 
             if (is_writable(Conf::getTmpPath())) {
@@ -51,7 +50,7 @@ class FileRegistry extends IRegistry
                     serialize($value)
                 );
             } else {
-                throw new \RuntimeException(
+                throw new RegistryException(
                     "Permission denied (" . Conf::getTmpPath() . ")"
                 );
             }
