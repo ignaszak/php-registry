@@ -47,7 +47,7 @@ class RegistryFactory
     /**
      *
      * @param string $registry
-     * @throws \InvalidArgumentException
+     * @throws RegistryException
      * @return \Ignaszak\Registry\Scope\IRegistry
      */
     private static function getRegistryInstance(string $registry): IRegistry
@@ -62,7 +62,7 @@ class RegistryFactory
             case 'file':
                 return new Scope\FileRegistry();
             default:
-                throw new \InvalidArgumentException('Incorrect argument');
+                throw new RegistryException('Incorrect argument');
         }
     }
 }

@@ -35,7 +35,7 @@ class FileRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Ignaszak\Registry\RegistryException
      */
     public function testCantCreateTmpFolder()
     {
@@ -45,7 +45,7 @@ class FileRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Ignaszak\Registry\RegistryException
      */
     public function testCantSave()
     {

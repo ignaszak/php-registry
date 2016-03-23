@@ -61,7 +61,7 @@ class Registry
     /**
      * @param string $name
      * @return object
-     * @throws Exception
+     * @throws RegistryException
      */
     public function register(string $name)
     {
@@ -84,7 +84,7 @@ class Registry
     /**
      * @param string $name
      * @return boolean
-     * @throws Exception
+     * @throws RegistryException
      */
     public function reload(string $name): bool
     {
@@ -92,35 +92,35 @@ class Registry
             $className = get_class($this->get($name));
             return $this->set($name, new $className);
         } else {
-            throw new \RuntimeException("Class '$name' not registered");
+            throw new RegistryException("Class '$name' not registered");
         }
     }
 
     /**
      * @param object $value
      * @return boolean
-     * @throws Exception
+     * @throws RegistryException
      */
     private function isObject($value): bool
     {
         if (is_object($value)) {
             return true;
         } else {
-            throw new \RuntimeException('Object not exists');
+            throw new RegistryException('Object not exists');
         }
     }
 
     /**
      * @param string $name
      * @return boolean
-     * @throws Exception
+     * @throws RegistryException
      */
     private function classExists(string $name): bool
     {
         if (class_exists($name)) {
             return true;
         } else {
-            throw new \RuntimeException("Class '$name' not exists");
+            throw new RegistryException("Class '$name' not exists");
         }
     }
 }

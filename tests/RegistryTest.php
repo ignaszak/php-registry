@@ -81,7 +81,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Ignaszak\Registry\RegistryException
      */
     public function testRegisterException()
     {
@@ -105,7 +105,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Ignaszak\Registry\RegistryException
      */
     public function testReloadNonAddedClass()
     {
@@ -140,7 +140,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Ignaszak\Registry\RegistryException
      */
     public function testIsObjectException()
     {
@@ -154,7 +154,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Ignaszak\Registry\RegistryException
      */
     public function testClassExistsException()
     {
