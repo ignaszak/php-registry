@@ -4,9 +4,8 @@
  *
  * PHP Version 7.0
  *
- * @copyright 2015 Tomasz Ignaszak
+ * @copyright 2016 Tomasz Ignaszak
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
- * @link      http://phpdoc.org
  */
 declare(strict_types=1);
 
@@ -25,22 +24,22 @@ class RegistryFactory
     /**
      * @var IRegistry[]
      */
-    private static $_registryArray = [];
+    private static $registryArray = [];
 
     /**
      *
      * @param string $registry
-     * @return \Ignaszak\Registry\IRegistry
+     * @return \Ignaszak\Registry\Scope\IRegistry
      */
-    public static function start(string $registry = 'request'): Registry
+    public static function start(string $registry = 'request'): IRegistry
     {
-        if (array_key_exists($registry, self::$_registryArray)) {
-            return self::$_registryArray[$registry];
+        if (array_key_exists($registry, self::$registryArray)) {
+            return self::$registryArray[$registry];
         } else {
-            self::$_registryArray[$registry] = new Registry(
-                self::getRegistryInstance($registry)
+            self::$registryArray[$registry] = self::getRegistryInstance(
+                $registry
             );
-            return self::$_registryArray[$registry];
+            return self::$registryArray[$registry];
         }
     }
 

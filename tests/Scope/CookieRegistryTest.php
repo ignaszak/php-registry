@@ -41,6 +41,6 @@ class CookieRegistryTest extends \PHPUnit_Framework_TestCase
     public function testSetCookie()
     {
         $cookie = new CookieRegistry();
-        unset($this->cookie);
+        unset($cookie);
     }
 }

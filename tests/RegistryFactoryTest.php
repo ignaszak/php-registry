@@ -11,25 +11,33 @@ class RegistryFactoryTest extends \PHPUnit_Framework_TestCase
     public function testSetNewInstanceAtStart()
     {
         $this->assertInstanceOf(
-            '\Ignaszak\Registry\Registry',
+            'Ignaszak\Registry\Scope\IRegistry',
             RegistryFactory::start()
         );
     }
 
-    public function testReturnSavedinstanceAtStart()
+    public function testReturnSavedInstanceAtStart()
     {
-        $stub = $this->getMockBuilder('Ignaszak\Registry\Registry')
-            ->disableOriginalConstructor()
-            ->setMethods(['test'])
-            ->getMock();
+        $stub = $this->getMockBuilder('Ignaszak\Registry\Scope\IRegistry')
+        ->disableOriginalConstructor()
+        ->setMethods(['test'])
+        ->getMock();
         $stub->method('test')->willReturn(true);
         MockTest::injectStatic(
             'Ignaszak\Registry\RegistryFactory',
-            '_registryArray',
+            'registryArray',
             ['request' => $stub]
         );
         $result = RegistryFactory::start();
         $this->assertTrue($result->test());
+    }
+
+    /**
+     * @expectedException \Ignaszak\Registry\RegistryException
+     */
+    public function testInvalidArgument()
+    {
+        RegistryFactory::start('invalidArgument');
     }
 
     public function testGetRequestInstance()
@@ -43,7 +51,7 @@ class RegistryFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testGetSessioInstance()
+    public function testGetSessionInstance()
     {
         $this->assertInstanceOf(
             'Ignaszak\Registry\Scope\SessionRegistry',

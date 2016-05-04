@@ -4,7 +4,7 @@
  *
  * PHP Version 7.0
  *
- * @copyright 2015 Tomasz Ignaszak
+ * @copyright 2016 Tomasz Ignaszak
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  */
 declare(strict_types=1);
@@ -27,13 +27,11 @@ class FileRegistry extends IRegistry
      * {@inheritDoc}
      * @see \Ignaszak\Registry\Scope\IRegistry::set($name, $value)
      */
-    public function set(string $name, $value)
+    public function set(string $name, $value): IRegistry
     {
         // Check if file is exists
         if (is_object($this->get($name))) {
-
             parent::set($name, $this->get($name));
-
         } else {
             // If not create new file
             if (! is_dir(Conf::getTmpPath()) &&
@@ -55,6 +53,8 @@ class FileRegistry extends IRegistry
                 );
             }
         }
+
+        return $this;
     }
 
     /**
@@ -66,8 +66,7 @@ class FileRegistry extends IRegistry
         $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_{$name}.tmp";
 
         if (file_exists($tmpFile)) {
-
-            if (!$this->isAdded($name)) {
+            if (!$this->has($name)) {
                 $fileContent = file_get_contents($tmpFile);
                 $this->registryArray[$name] = unserialize($fileContent);
             }
@@ -82,7 +81,7 @@ class FileRegistry extends IRegistry
      * {@inheritDoc}
      * @see \Ignaszak\Registry\IRegistry::remove($name)
      */
-    public function remove(string $name): bool
+    public function remove(string $name): IRegistry
     {
         $tmpFile = Conf::getTmpPath() . "/IgnaszakRegistry_{$name}.tmp";
 

@@ -9,15 +9,23 @@ use Test\Mock\MockTest;
 class FileRegistryTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $_registry;
+    /**
+     *
+     * @var \Ignaszak\Registry\Scope\FileRegistry
+     */
+    private $fileRegistry = null;
 
-    private $path;
+    /**
+     *
+     * @var string
+     */
+    private $path = '';
 
     public function setUp()
     {
         $this->path = MockTest::mockDir('tmpPath');
         Conf::setTmpPath($this->path);
-        $this->_registry = new FileRegistry();
+        $this->fileRegistry = new FileRegistry();
     }
 
     public function testSetAgain()
@@ -41,7 +49,7 @@ class FileRegistryTest extends \PHPUnit_Framework_TestCase
     {
         Conf::setTmpPath(MockTest::mockFile('tmpPath', 0000));
         $stub = $this->getMock('AnyClass');
-        $this->_registry->set('anyName', $stub);
+        $this->fileRegistry->set('anyName', $stub);
     }
 
     /**
@@ -53,37 +61,37 @@ class FileRegistryTest extends \PHPUnit_Framework_TestCase
         chmod($dir, 0000);
         Conf::setTmpPath($dir);
         $stub = $this->getMock('AnyClass');
-        $this->_registry->set('anyName', $stub);
+        $this->fileRegistry->set('anyName', $stub);
     }
 
     public function testSaveFileOnSet()
     {
         $stub = $this->getMock('AnyClass');
-        $this->_registry->set('name', $stub);
+        $this->fileRegistry->set('name', $stub);
         $this->assertFileExists("{$this->path}/IgnaszakRegistry_name.tmp");
     }
 
     public function testGetNull()
     {
-        $this->assertEmpty($this->_registry->get('name'));
+        $this->assertEmpty($this->fileRegistry->get('name'));
     }
 
     public function testGetContent()
     {
         file_put_contents(
             "{$this->path}/IgnaszakRegistry_name.tmp",
-            's:7:"content"'
+            's:7:"content";'
         );
         $this->assertEquals(
             'content',
-            $this->_registry->get('name')
+            $this->fileRegistry->get('name')
         );
     }
 
     public function testRemove()
     {
         file_put_contents("{$this->path}/IgnaszakRegistry_name.tmp", 'content');
-        $this->_registry->remove('name');
+        $this->fileRegistry->remove('name');
         $this->assertFileNotExists("{$this->path}/IgnaszakRegistry_name.tmp");
     }
 }

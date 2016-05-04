@@ -4,61 +4,100 @@
  *
  * PHP Version 7.0
  *
- * @copyright 2015 Tomasz Ignaszak
+ * @copyright 2016 Tomasz Ignaszak
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
- * @link      http://phpdoc.org
  */
 declare(strict_types=1);
 
 namespace Ignaszak\Registry\Scope;
 
+use Ignaszak\Registry\RegistryException;
+
 /**
  *
  * @author Tomasz Ignaszak <tomek.ignaszak@gmail.com>
- * @link
  *
  */
 abstract class IRegistry
 {
 
     /**
-     * @var object[]
+     *
+     * @var mixed[]
      */
-    protected $registryArray = array();
+    protected $registryArray = [];
 
     /**
+     *
      * @param string $name
-     * @param object $value
+     * @param unknown $value
+     * @return IRegistry
      */
-    public function set(string $name, $value)
+    public function set(string $name, $value): IRegistry
     {
         $this->registryArray[$name] = $value;
+
+        return $this;
     }
 
     /**
+     *
      * @param string $name
-     * @return object|null
+     * @return mixed
      */
     public function get(string $name)
     {
-        if ($this->isAdded($name)) {
-            return $this->registryArray[$name];
-        }
-
-        return null;
+        return $this->registryArray[$name] ?? null;
     }
 
     /**
-     * @param string $name
-     * @return boolean
+     *
+     * @param string $className
+     * @throws RegistryException
+     * @return mixed
      */
-    public function remove(string $name): bool
+    public function register(string $className)
     {
-        if ($this->isAdded($name)) {
-            unset($this->registryArray[$name]);
-            return true;
+        if ($this->has($className)) {
+            return $this->registryArray[$className];
+        } elseif (class_exists($className)) {
+            return $this->registryArray[$className] = new $className();
         } else {
-            return false;
+            throw new RegistryException("Class '{$className}' not exists");
+        }
+    }
+
+    /**
+     *
+     * @param string $name
+     * @return IRegistry
+     */
+    public function remove(string $name): IRegistry
+    {
+        if ($this->has($name)) {
+            unset($this->registryArray[$name]);
+        }
+
+        return $this;
+    }
+
+    /**
+     *
+     * @param string $name
+     * @throws RegistryException
+     * @return mixed
+     */
+    public function reload(string $name)
+    {
+        if ($this->has($name)) {
+            if (is_object($this->registryArray[$name])) {
+                $className = get_class($this->registryArray[$name]);
+                return $this->registryArray[$name] = new $className();
+            } else {
+                throw new RegistryException("'{$name}' is not a class");
+            }
+        } else {
+            throw new RegistryException("Class '{$name}' not registered");
         }
     }
 
@@ -66,12 +105,8 @@ abstract class IRegistry
      * @param string $name
      * @return boolean
      */
-    public function isAdded(string $name): bool
+    public function has(string $name): bool
     {
-        if (array_key_exists($name, $this->registryArray)) {
-            return true;
-        }
-
-            return false;
+        return array_key_exists($name, $this->registryArray);
     }
 }

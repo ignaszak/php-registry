@@ -1,63 +1,101 @@
 <?php
-
 namespace Test\Scope;
-
-use Test\Mock\MockTest;
 
 class IRegistryTest extends \PHPUnit_Framework_TestCase
 {
 
-    public static $_registry;
+    /**
+     *
+     * @var \Ignaszak\Registry\Scope\IRegistry
+     */
+    public $IRegistry = null;
 
-    public static function setUpBeforeClass()
+    public function setUp()
     {
-        new class extends \PHPUnit_Framework_TestCase
-        {
-            public function __construct()
-            {
-                \Test\Scope\IRegistryTest::$_registry = $this->getMockForAbstractClass('Ignaszak\Registry\Scope\IRegistry');
-            }
-        };
-    }
-
-    public function testSet()
-    {
-        $name = 'name';
-        $value = 'value';
-        self::$_registry->set($name, $value);
-        $this->assertEquals(
-            \PHPUnit_Framework_Assert::readAttribute(self::$_registry, 'registryArray'),
-            array(
-                $name => $value
-            )
+        $this->IRegistry = $this->getMockForAbstractClass(
+            'Ignaszak\Registry\Scope\IRegistry'
         );
     }
 
-    public function testGet()
+    public function testSetAndGetMethods()
     {
-        $this->assertEquals(
-            self::$_registry->get('name'),
-            'value'
-        );
+        $result = $this->IRegistry->set('name', 'value');
+        $this->assertEquals('value', $this->IRegistry->get('name'));
+        $this->assertInstanceOf('Ignaszak\Registry\Scope\IRegistry', $result);
     }
 
-    public function testIsAdded()
+    /**
+     * @expectedException \Ignaszak\Registry\RegistryException
+     */
+    public function testRegisterNonClass()
     {
-        $this->assertTrue(self::$_registry->isAdded('name'));
-        $this->assertFalse(self::$_registry->isAdded('noExistingName'));
+        $this->IRegistry->register('nonClass');
+    }
+
+    public function testRegisterClass()
+    {
+        $className = get_class($this->getMockBuilder('NewClass')->getMock());
+        $this->assertInstanceOf(
+            $className,
+            $this->IRegistry->register($className)
+        );
+        $this->assertInstanceOf(
+            $className,
+            $this->IRegistry->register($className)
+        );
     }
 
     public function testRemove()
     {
-        $this->assertTrue(self::$_registry->remove('name'));
-        $registryArray = \PHPUnit_Framework_Assert::readAttribute(self::$_registry, 'registryArray');
-        $this->assertFalse(array_key_exists('name', $registryArray));
-        $this->assertFalse(self::$_registry->remove('noExistingName'));
+        $object = $this->getMockBuilder('NewClass')->getMock();
+        $this->IRegistry->set('test', $object);
+        $this->assertInstanceOf(
+            'Ignaszak\Registry\Scope\IRegistry',
+            $this->IRegistry->remove('test')
+        );
+        $this->assertNull($this->IRegistry->get('test'));
     }
 
-    public function testEmptyGet()
+    /**
+     * @expectedException \Ignaszak\Registry\RegistryException
+     */
+    public function testReloadUnaddedClass()
     {
-        MockTest::inject(self::$_registry, 'registryArray', []);
-        $this->assertEmpty(self::$_registry->get('name'));
+        $this->IRegistry->reload('unaddedClass');
+    }
+
+    /**
+     * @expectedException \Ignaszak\Registry\RegistryException
+     */
+    public function testReoladNonObject()
+    {
+        $this->IRegistry->set('name', 'string');
+        $this->IRegistry->reload('name');
+    }
+
+    public function testReload()
+    {
+        $object = new class () {
+            public static $count = 0;
+            public function __construct()
+            {
+                ++self::$count;
+            }
+            public function get(): int
+            {
+                return self::$count;
+            }
+        };
+        $this->assertEquals(1, $object->get());
+        $this->IRegistry->set('test', $object);
+        $this->IRegistry->reload('test');
+        $this->assertEquals(2, $object->get());
+    }
+
+    public function testHas()
+    {
+        $this->assertFalse($this->IRegistry->has('test'));
+        $this->IRegistry->set('test', 'string');
+        $this->assertTrue($this->IRegistry->has('test'));
     }
 }
