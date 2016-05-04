@@ -17,7 +17,7 @@ The package is avilable via [Composer/Packagist](https://packagist.org/packages/
 or:
 
 ```sh
-php composer.phar require ignaszak/registry
+composer require ignaszak/registry
 ```
 
 ## Running Tests
@@ -25,7 +25,7 @@ php composer.phar require ignaszak/registry
 Just run phpunit from the working directory
 
 ```sh
-php phpunit.phar
+phpunit
 ```
 
 ## Requirments
@@ -59,20 +59,21 @@ $registry = RegistryFactory::start();
 $registry->set('key', new AnyClass);
 $registry->get('key'); // Returns AnyClass instance
 
+// Returns true if the key is defined
+$registry->has('key');
+
 // Reload object
 $registry->reload('key');
 
-// Remove from register
+// Removes from register
 $registry->remove('key');
 
 // Use register method
-// In these method key is class name with namespace
-// First use sets and returns instance of AnyClass
-// Any further use only returns instance of AnyClass
-$registry->register('AnyClass');
-// It is possible to use earlier methods
-$registry->reload('AnyClass');
-$registry->remove('AnyClass');
-
-
+// First use sets and returns instance of Namespace\AnyClass
+// Any further use only returns instance of Namespace\AnyClass
+$registry->register('Namespace\AnyClass');
+// It is possible to use has, reload and remove methods
+$registry->has('Namespace\AnyClass');
+$registry->reload('Namespace\AnyClass');
+$registry->remove('Namespace\AnyClass');
 ```

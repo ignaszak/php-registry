@@ -3,7 +3,7 @@
 use Ignaszak\Registry\Conf;
 use Ignaszak\Registry\RegistryFactory;
 
-include __DIR__ . '/autoload.php';
+include __DIR__ . '/vendor/autoload.php';
 
 // Configuration - optional
 // Conf::setTmpPath(string $tmpPath);      // default: './src/tmp'
